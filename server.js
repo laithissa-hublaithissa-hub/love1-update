@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const path = require("path");
 
-const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -44,5 +44,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
+
 
 
