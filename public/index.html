@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love1 - إرسال رسالة</title>
+  <style>
+    body {
+      background: linear-gradient(#3b2a1f, #1f140f);
+      color: gold;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .box {
+      background: rgba(0,0,0,0.3);
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    button {
+      background: gold;
+      color: black;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>إرسال رسالة 💌</h2>
+    <input id="msg" placeholder="اكتب الرسالة..." />
+    <button onclick="send()">إرسال</button>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    async function send() {
+      const message = document.getElementById("msg").value;
+      const status = document.getElementById("status");
+
+      const res = await fetch("/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        status.innerText = "تم الإرسال بنجاح ❤️";
+      } else {
+        status.innerText = "حدث خطأ";
+      }
+    }
+  </script>
+</body>
+</html>
